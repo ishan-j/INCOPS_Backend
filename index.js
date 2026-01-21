@@ -23,7 +23,7 @@ db.connect((err) => {
 });
 
 // Register API
-app.post("/auth/register", (req, res) => {
+app.post("api/auth/register", (req, res) => {
   const { username, email, password } = req.body;
 
   const sql = `
@@ -42,7 +42,7 @@ app.post("/auth/register", (req, res) => {
 });
 
 // Health check (VERY IMPORTANT for K8s)
-app.get("/health", (req, res) => {
+app.get("api/health", (req, res) => {
   res.send("OK");
 });
 
