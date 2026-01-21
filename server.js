@@ -3,7 +3,15 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
-app.use(cors());
+app.use(cors(
+{
+origin: '*',
+methods: ['GET', 'POST'],
+allowedHeaders: ['Content-Type', 'Authorization']
+
+}
+
+));
 app.use(express.json()); // Essential for parsing JSON bodies
 
 app.use('/api/auth', authRoutes);
