@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: backend
-        image: backend:v1
+        image: ishanj10/incops-backend:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
         env:
