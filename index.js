@@ -41,6 +41,36 @@ app.post("/api/auth/register", (req, res) => {
   });
 });
 
+// Login API
+app.post("/api/auth/login", (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password required" });
+  }
+
+  const sql = `
+    SELECT id, username, email FROM users
+    WHERE email = ? AND password = ?
+  `;
+
+  db.query(sql, [email, password], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    res.json({ 
+      message: "Login successful",
+      user: results[0]
+    });
+  });
+});
+
 // Health check (VERY IMPORTANT for K8s)
 app.get("/api/health", (req, res) => {
   res.send("OK");
